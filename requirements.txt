@@ -8,3 +8,7 @@ pyttsx3==2.90
 requests==2.32.3
 faster-whisper==1.0.3
 webrtcvad==2.0.10
+streamlit-webrtc==0.47.6
+aiortc==1.7.0
+aioice==0.9.0
+av==12.3.0

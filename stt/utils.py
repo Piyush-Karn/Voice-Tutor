@@ -8,7 +8,7 @@ def load_audio_to_mono_16k(file_bytes: bytes):
     mono = data.mean(axis=1)
     if sr != 16000:
         mono = resample_poly(mono, 16000, sr)
-    return mono, 16000
+    return mono.astype(np.float32), 16000
 
 def to_int16_pcm(mono_float: np.ndarray):
     mono_clipped = np.clip(mono_float, -1.0, 1.0)

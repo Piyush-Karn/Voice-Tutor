@@ -14,9 +14,9 @@ def render_chat_ui(settings: Settings):
     user_input = st.text_input("Type a question (e.g., What is a noun?)", key="chat_input")
     col1, col2 = st.columns([1, 1])
     with col1:
-        ask = st.button("Ask")
+        ask = st.button("Ask", key="btn_chat_ask")
     with col2:
-        clear = st.button("Clear")
+        clear = st.button("Clear", key="btn_chat_clear")
 
     if clear:
         st.session_state["messages"] = []
@@ -24,12 +24,12 @@ def render_chat_ui(settings: Settings):
 
     if ask and user_input.strip():
         st.session_state["messages"].append(("user", user_input.strip()))
-        llm = LLMService(settings)
+        llm = LLMService(settings, strict_api=True)  # enforce Mistral API only
         reply = llm.generate(user_input.strip())
         st.session_state["messages"].append(("bot", reply))
         tts = TTSService(settings)
-        wav_bytes = tts.synthesize(reply)
-        save_and_play_audio(wav_bytes, "Tutor Reply")
+        out_wav = tts.synthesize(reply)  # prompt prevents emojis/symbols
+        save_and_play_audio(out_wav, "Tutor Reply")
 
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
     for role, text in st.session_state["messages"]:
