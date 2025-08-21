@@ -1,0 +1,19 @@
+.chat-bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 6px 0;
+  max-width: 90%;
+}
+.user {
+  background: #e8f0fe;
+  align-self: flex-end;
+}
+.bot {
+  background: #f1f3f4;
+  align-self: flex-start;
+}
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
